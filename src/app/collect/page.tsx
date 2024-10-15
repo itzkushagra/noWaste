@@ -29,6 +29,27 @@ export default function CollectPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [user, setUser] = useState<{ id: number; email: string; name: string } | null>(null)
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500); // Set debounce delay (500ms)
+  
+    // Cleanup timeout if searchTerm changes before delay is complete
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
+  
+
+  // Now you can use debouncedSearchTerm to perform the actual search
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      // Call the search API or handle search logic here
+      console.log("Searching for:", debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
 
   useEffect(() => {
     const fetchUserAndTasks = async () => {
@@ -192,8 +213,9 @@ export default function CollectPage() {
   }
 
   const filteredTasks = tasks.filter(task =>
-    task.location.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+    task.location.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+  );
+  
 
   const pageCount = Math.ceil(filteredTasks.length / ITEMS_PER_PAGE)
   const paginatedTasks = filteredTasks.slice(
