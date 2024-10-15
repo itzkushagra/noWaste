@@ -9,7 +9,7 @@ outline.md
 legacy
 # testing
 /coverage
-
+.env
 # next.js
 /.next/
 /out/
