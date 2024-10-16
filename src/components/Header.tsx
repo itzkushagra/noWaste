@@ -212,6 +212,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
             <div className="flex flex-col">
               <span className="font-bold text-base md:text-lg text-gray-800">noWaste</span>
               <span className="text-[8px] md:text-[10px] text-gray-500 -mt-1">Clean Green Earth</span>
+
             </div>
           </Link>
         </div>
