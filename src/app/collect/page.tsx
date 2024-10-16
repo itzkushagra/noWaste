@@ -34,19 +34,15 @@ export default function CollectPage() {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
-    }, 500); // Set debounce delay (500ms)
-  
-    // Cleanup timeout if searchTerm changes before delay is complete
+    }, 500); // Set a delay of 500ms
     return () => {
       clearTimeout(handler);
     };
   }, [searchTerm]);
   
 
-  // Now you can use debouncedSearchTerm to perform the actual search
   useEffect(() => {
     if (debouncedSearchTerm) {
-      // Call the search API or handle search logic here
       console.log("Searching for:", debouncedSearchTerm);
     }
   }, [debouncedSearchTerm]);
